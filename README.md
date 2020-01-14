@@ -5,7 +5,7 @@ Example:
 ```
 
 import React from "react";
-import useWindow from "./use-window";
+import useWindow from "use-window";
 
 export default function App() {
   const [count, setCount] = useWindow("count", 0);
