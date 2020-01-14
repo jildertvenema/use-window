@@ -1,22 +1,21 @@
-const { useEffect } = require('react')
+const { useEffect, useState, useCallback } = require("react");
 
 const useWindow = (key, initialValue) => {
-  if (!window.hookValues) {
-    window.hookValues = {}
-  }
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    window.hookValues[key] = initialValue
-  }, [initialValue])
+    window[key] = initialValue;
+  }, [initialValue, key]);
 
-  const setValue = (newValue) => {
-    window.hookValues[key] = newValue
-  }
-  
+  const setValue = newValue => {
+    window[key] = newValue;
+    forceUpdate();
+  };
 
-  const value = window.hookValues[key]
+  const value = window[key];
 
-  return [value, setValue]
-}
+  return [value, setValue];
+};
 
-module.exports = useWindow
+module.exports = useWindow;
