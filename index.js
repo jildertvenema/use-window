@@ -4,6 +4,11 @@ const useWindow = (key, initialValue) => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
+
+  if (!window[key]) {
+    window[key] = initialValue;
+  }
+
   useEffect(() => {
     window[key] = initialValue;
   }, [initialValue, key]);
